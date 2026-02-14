@@ -1,0 +1,16 @@
+{
+  script: {
+    statement: if,
+    condition: [
+      {
+        function: random
+      },
+      "equals",
+      1
+    ],
+    then: {
+      literal: "\"minecraft:ponder\""
+    },
+    else: 5
+  }
+}

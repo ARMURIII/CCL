@@ -1,0 +1,8 @@
+accessWidener    v1	named
+
+accessible class net/minecraft/recipe/Ingredient$Entry
+accessible class net/minecraft/recipe/Ingredient$TagEntry
+accessible method net/minecraft/recipe/Ingredient$TagEntry <init> (Lnet/minecraft/registry/tag/TagKey;)V
+accessible class net/minecraft/recipe/Ingredient$StackEntry
+accessible method net/minecraft/recipe/Ingredient$StackEntry <init> (Lnet/minecraft/item/ItemStack;)V
+accessible method net/minecraft/recipe/Ingredient ofEntries (Ljava/util/stream/Stream;)Lnet/minecraft/recipe/Ingredient;

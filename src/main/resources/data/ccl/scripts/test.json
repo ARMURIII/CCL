@@ -1,0 +1,29 @@
+{
+  variables: {
+    "horn": {
+      new: Ingredient,
+      Ingredient: {
+        item: "\"minecraft:goat_horn\""
+      }
+    }
+  },
+  script: {
+    statement: if,
+    condition: {
+      receiver: {
+        receiver: @horn,
+        function: nbt,
+        path: "\"instrument\""
+      },
+      function: isNull
+    },
+    then: {
+      literal: "\"minecraft:ponder\""
+    },
+    else: {
+      receiver: @horn,
+      function: nbt,
+      path: "\"instrument\""
+    }
+  }
+}

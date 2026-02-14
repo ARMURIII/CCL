@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "arr.armuriii.ccl.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "recipe.CraftingScreenHandlerMixin",
+    "recipe.IngredientMixin",
+    "recipe.ShapedRecipeMixin",
+    "recipe.ShapelessRecipeMixin",
+    "recipe.Json.JsonHelperMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

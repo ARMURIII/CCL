@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:goat_horn"
+    },
+    {
+      "item": "minecraft:cobblestone",
+      "min": 1,
+      "max": 8
+    }
+  ],
+  "result": {
+    "item": "minecraft:goat_horn",
+    "nbt": {
+      "instrument": {
+        "ccl.script": "ccl:test.json"
+      },
+      "Count": "@-I ingr(\"minecraft:cobblestone\").size();"
+    }
+  },
+  "show_notification": true
+}
