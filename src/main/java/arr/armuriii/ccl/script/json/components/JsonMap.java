@@ -6,16 +6,16 @@ import com.google.gson.JsonElement;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class JsonCompound extends JsonComponent<Object> {
-    public final ArrayList<JsonComponent<?>> components;
+public class JsonMap extends JsonComponent<Object> {
+    public final Map<String,JsonComponent<?>> components;
 
-    public JsonCompound(ArrayList<JsonComponent<?>> components) {
+    public JsonMap(Map<String,JsonComponent<?>> components) {
         this.components = components;
     }
 
     @Override
     public Object apply(Map<String, JsonComponent<?>> variables, AbstractExtraData extraData) {
-        for (JsonComponent<?> component : components) {
+        for (JsonComponent<?> component : components.values()) {
             Object obj = component.apply(variables, extraData);
             if (obj != null)
                 return obj;
@@ -25,7 +25,7 @@ public class JsonCompound extends JsonComponent<Object> {
 
     @Override
     public <T> T apply(Map<String,JsonComponent<?>> variables, AbstractExtraData extraData, Class<T> clazz) {
-        for (JsonComponent<?> component : components) {
+        for (JsonComponent<?> component : components.values()) {
             T obj = component.apply(variables, extraData,clazz);
             if (obj != null)
                 return obj;

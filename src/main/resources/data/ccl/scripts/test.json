@@ -3,7 +3,7 @@
     "horn": {
       new: Ingredient,
       Ingredient: {
-        item: "\"minecraft:goat_horn\""
+        entries: ["\"minecraft:goat_horn\""]
       }
     }
   },

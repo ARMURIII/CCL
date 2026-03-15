@@ -5,12 +5,12 @@ import net.minecraft.util.Identifier;
 
 import java.util.function.Function;
 
-public class JsonConstFactory<R> implements JsonConstructorFactory<R> {
+public class JsonConstructor<R> implements JsonConstructorFactory<R> {
 
     protected final Function<JsonElement,R> function;
     protected final Identifier identifier;
 
-    public JsonConstFactory(Function<JsonElement, R> function, Identifier identifier) {
+    public JsonConstructor(Function<JsonElement, R> function, Identifier identifier) {
         this.function = function;
         this.identifier = identifier;
     }

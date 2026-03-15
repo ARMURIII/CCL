@@ -8,21 +8,31 @@ import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.JsonHelper;
+import net.minecraft.util.dynamic.Range;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Unique;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class JsonConversionUtils {
+    // will match -9.5..9 , ..5.59
+    public static final String RANGE_REGEX = """
+            (([+-]?(?=\\.\\d|\\d)(?:\\d+)?\\.?\\d*)(?:[Ee]([+-]?\\d+))?)?
+            \\.\\.
+            (([+-]?(?=\\.\\d|\\d)(?:\\d+)?\\.?\\d*)(?:[Ee]([+-]?\\d+))?)
+            """;
+
     /*
     * this is for JSON Scripts, do not use it anywhere else
     * if the JsonElement is a String,
     * it will either:
     * be a String if the String has \" at start and end
     * or a Token if the String does not have \"
+    *
+    * Example:
+    * "foo" -> Token
+    * "\"foo\"" -> String
     */
     public static Object getValue(JsonElement element) {
         if (element instanceof JsonObject object) {
@@ -47,7 +57,15 @@ public class JsonConversionUtils {
             if (primitive.isBoolean())
                 return primitive.getAsBoolean();
             else if (primitive.isString())
-                return reformatString(primitive.getAsString());
+                if (primitive.getAsString().matches(RANGE_REGEX)) {
+                    ArrayList<String> parts = new ArrayList<>(Arrays.asList(primitive.getAsString().split("\\.\\.")));
+                    parts.removeIf(String::isBlank);
+                    parts.removeIf(String::isEmpty);
+                    if (parts.size() == 1)
+                        return new Range<>(0f,Float.valueOf(parts.get(0)));
+                    return new Range<>(Float.valueOf(parts.get(0)),Float.valueOf(parts.get(1)));
+                } else
+                    return reformatString(primitive.getAsString());
             else
                 return getNumberType(primitive.getAsNumber());
         if (element instanceof JsonArray array)
@@ -55,7 +73,7 @@ public class JsonConversionUtils {
         return null;
     }
 
-    //since JsonPrimitive gives a LazilyParsedNumber, we need to correct it to the correct number
+    //since JsonPrimitive gives a LazilyParsedNumber, we need to parse it correctly
     public static Object getNumberType(Number number) {
         if (number.toString().contains("."))
             return number.floatValue();
@@ -65,6 +83,8 @@ public class JsonConversionUtils {
     public static Object reformatString(String s) {
         if (s.startsWith("\"") && s.endsWith("\""))
             return s.replaceAll("(?<!\\\\)\"","");
+        else if (s.equals("null"))
+            return null;
         else
             return new Token(s);
     }

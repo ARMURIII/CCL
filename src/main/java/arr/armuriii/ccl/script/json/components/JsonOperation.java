@@ -30,9 +30,7 @@ public class JsonOperation extends JsonComponent<Object> {
         Object n2 = right.apply(variables, extraData);
         if (n1 instanceof Integer i1 && n2 instanceof Integer i2 && operator.execute(i1, i2) instanceof Number number)
             return Math.round(number.floatValue());
-        Object obj = operator.execute(n1, n2);
-        System.out.println(obj.toString());
-        return obj;
+        return operator.execute(n1, n2);
     }
 
     @Override

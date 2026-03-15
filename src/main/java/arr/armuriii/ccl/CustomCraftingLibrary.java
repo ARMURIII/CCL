@@ -19,9 +19,13 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.luaj.vm2.Globals;
+import org.luaj.vm2.LuaTable;
+import org.luaj.vm2.LuaValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.StringReader;
 import java.util.Map;
 import java.util.Optional;
 
@@ -34,6 +38,7 @@ public class CustomCraftingLibrary implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+
 		JsonComponentInit.registerComponents();
 
 		CommandRegistrationCallback.EVENT.register((dispatcher,access,environment)->{

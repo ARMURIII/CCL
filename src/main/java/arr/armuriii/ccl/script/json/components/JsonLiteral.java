@@ -12,10 +12,15 @@ import java.util.Map;
 
 public class JsonLiteral extends JsonComponent<Object> {
 
-    protected final Object value;
+    public final Object value;
 
     public JsonLiteral(Object value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return value.toString();
     }
 
     @Override

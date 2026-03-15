@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Executable;
+
 public class JsonScriptReaderTest {
 
     @BeforeAll
@@ -17,10 +19,25 @@ public class JsonScriptReaderTest {
 
     @Test
     void testEvaluate() {
-        for (int i = 0;i<10;i++){
-            Object obj = JsonScriptReader.evaluate(getScript(), null);
-            Assertions.assertEquals("5", obj.toString());
-        }
+        Assertions.assertArrayEquals(
+                new String[]{
+                "minecraft:ponder",
+                "minecraft:ponder",
+                "minecraft:ponder",
+                "minecraft:ponder",
+                "minecraft:ponder",
+                "minecraft:ponder",
+                "minecraft:ponder"
+        },
+                new String[]{
+                JsonScriptReader.evaluate(getScript(), null).toString(),
+                JsonScriptReader.evaluate(getScript(), null).toString(),
+                JsonScriptReader.evaluate(getScript(), null).toString(),
+                JsonScriptReader.evaluate(getScript(), null).toString(),
+                JsonScriptReader.evaluate(getScript(), null).toString(),
+                JsonScriptReader.evaluate(getScript(), null).toString(),
+                JsonScriptReader.evaluate(getScript(), null).toString()
+        });
     }
 
     static JsonObject getScript() {
@@ -33,10 +50,12 @@ public class JsonScriptReaderTest {
                     statement: if,
                     condition: [
                       {
-                        function: random
+                        function: random,
+                        min: 0,
+                        max: 0
                       },
-                      "equals",
-                      1
+                      "EQUALS",
+                      0
                     ],
                     then: @ponder,
                     else: 5

@@ -1,9 +1,6 @@
 package arr.armuriii.ccl.script.json;
 
-import arr.armuriii.ccl.script.json.components.JsonBooleanLogic;
-import arr.armuriii.ccl.script.json.components.JsonLiteral;
-import arr.armuriii.ccl.script.json.components.JsonOperation;
-import arr.armuriii.ccl.script.json.components.JsonVariable;
+import arr.armuriii.ccl.script.json.components.*;
 import arr.armuriii.ccl.script.json.components.function.JsonRandomFunction;
 import arr.armuriii.ccl.script.json.components.statement.JsonIfStatement;
 import arr.armuriii.ccl.util.JsonConversionUtils;
@@ -17,6 +14,9 @@ import net.minecraft.util.JsonHelper;
 public class JsonComponentInit {
 
     public static void registerComponents() {
+
+
+
         //primitives
         JsonComponentsImpl.registerComponent(new JsonLiteral.Factory());
         JsonComponentsImpl.registerComponent(new JsonVariable.Factory());
@@ -29,8 +29,9 @@ public class JsonComponentInit {
         //functions
         JsonComponentsImpl.registerComponent(new JsonRandomFunction.Factory());
 
-        //JsonComponentsImpl.registerConstructor(new JsonConstFactory<>(Ingredient::fromJson,CustomCraftingLibrary.id("Ingredient")));
-        //JsonComponentsImpl.registerConstructor(new JsonConstFactory<>(JsonComponentInit::ItemStackFromJson,CustomCraftingLibrary.id("ItemStack")));
+        //constructors
+        //JsonComponentsImpl.registerConstructor(new JsonConstructor<>(Ingredient::fromJson, CustomCraftingLibrary.id("Ingredient")));
+        //JsonComponentsImpl.registerConstructor(new JsonConstructor<>(JsonComponentInit::ItemStackFromJson,CustomCraftingLibrary.id("ItemStack")));
     }
 
     private static ItemStack ItemStackFromJson(JsonElement jsonElement) {
